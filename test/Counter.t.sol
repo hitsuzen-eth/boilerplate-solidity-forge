@@ -11,15 +11,16 @@ contract CounterTest is Test {
         counter = new Counter();
     }
 
-    function testIncrementByOne() public {
+    function testIncrementByOne(uint8 multipleIncrement) public {
         assertEq(counter.getCounterValue(), 0);
         
         counter.incrementByOne();
         assertEq(counter.getCounterValue(), 1);
         
-        counter.incrementByOne();
-        counter.incrementByOne();
-        assertEq(counter.getCounterValue(), 3);
+        for (uint i = 0; i < multipleIncrement; i++) {
+            counter.incrementByOne();
+        }
+        assertEq(counter.getCounterValue(), uint256(multipleIncrement) + 1);
     }
 
     function testFailDecrementByOne() public {
